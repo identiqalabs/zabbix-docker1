@@ -1,4 +1,4 @@
-FROM zabbix/zabbix-web-nginx-mysql:7.4-alpine-latest
+FROM zabbix/zabbix-web-nginx-mysql:8.0-alpine-latest
 
 USER root
 
