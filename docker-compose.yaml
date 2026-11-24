@@ -1,6 +1,6 @@
 services:
   mysql-server:
-    image: mysql:8.0
+    image: mysql:8.4
     container_name: mysql-server
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_bin --log-bin-trust-function-creators=1
     environment:
@@ -14,7 +14,7 @@ services:
     restart: unless-stopped
 
   zabbix-server:
-    image: zabbix/zabbix-server-mysql:7.4-alpine-latest
+    image: zabbix/zabbix-server-mysql:8.0-alpine-latest
     container_name: zabbix-server
     depends_on:
       - mysql-server
@@ -60,7 +60,7 @@ services:
     restart: unless-stopped
 
   zabbix-agent:
-    image: zabbix/zabbix-agent:alpine-7.4-latest
+    image: zabbix/zabbix-agent:alpine-8.0-latest
     container_name: zabbix-agent
     depends_on:
       - zabbix-server
@@ -72,7 +72,7 @@ services:
     restart: unless-stopped
 
   zabbix-snmptraps:
-    image: zabbix/zabbix-snmptraps:latest
+    image: zabbix/zabbix-snmptraps:alpine-8.0-latest
     container_name: zabbix-snmptraps
     ports:
       - "162:162/udp"
@@ -117,8 +117,8 @@ services:
       DB_USER: root
       DB_PASS: iqlab@2025
       DB_DUMP_TARGET: /backups
-      DB_DUMP_CRON: "0 2 * * 0"      # every Sunday at 2:00 AM
-      DB_DUMP_RETENTION: "4c"        # keep only the last 4 backups
+      DB_DUMP_CRON: "0 2 * * 0"
+      DB_DUMP_RETENTION: "4c"
       DB_NAMES: zabbix
       COMPRESSION: gzip
       DB_DUMP_DEBUG: "true"
